@@ -37,7 +37,6 @@ def homepage():
     msapp = AppForm()
     if msapp.validate_on_submit():
         SESSION.APP = msapp
-        print(msapp.AppID.data)
         return flask.redirect('/login')
     return flask.render_template('homepage.html', msapp=msapp)
 
@@ -87,7 +86,6 @@ def graphcall():
         endpoint = config.RESOURCE + config.API_VERSION + SESSION.API
         http_headers = {'client-request-id': str(uuid.uuid4())}
         graphdata = SESSION.get(endpoint, headers=http_headers, stream=False).json()
-        print(dir(graphdata))
         return flask.render_template('graphcall.html',
                                  graph=graph,
                                  graphdata=graphdata,

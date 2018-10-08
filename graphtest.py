@@ -16,7 +16,6 @@ import json
 import config
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # enable non-HTTPS for testing
-
 APP = flask.Flask(__name__, template_folder='static/templates')
 APP.debug = True
 Bootstrap(APP)

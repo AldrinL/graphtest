@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}Graph test{% endblock %}
+
+
+{% block content %}
+        <div class="container homepage-container">
+            <h1>Authenticated with ADAL</h1>
+            <div class="form-inline">      {{ wtf.quick_form(graph) }}            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Response</h3>
+              </div>
+              <div class="panel-body">
+                  <div class="well">{{ headers }}</div>
+                  <div class="well">{{ graphdata }}</div>
+              </div>
+            </div>
+            <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
+        </div>
+{% endblock %}

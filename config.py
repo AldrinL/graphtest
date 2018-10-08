@@ -3,8 +3,9 @@
 In a production deployment, this information should be saved in a database or
 other secure storage mechanism.
 """
+import os
 
-REDIRECT_URI = 'https://graphtest-aldrinl.c9users.io/login/authorized'
+REDIRECT_URI = os.environ.get('REDIRECT_URI', 'https://graphtest-aldrinl.c9users.io/login/authorized')
 
 # AUTHORITY_URL ending determines type of account that can be authenticated:
 # /organizations = organizational accounts only

@@ -6,7 +6,7 @@
 {% block content %}
         <div class="container homepage-container">
             <h1>Graph Query</h1>
-            <p>This site is provided for testing Microsoft Graph API. Powered by ADAL.</p>
+            <p>This site is provided for testing Microsoft Graph API. Please add {{ redirect_uri }} to the redirect uri list of you application.</p>
             {{ wtf.quick_form(msapp) }}
             <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
         </div>

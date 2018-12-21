@@ -2,11 +2,14 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Graph test{% endblock %}
 
-
 {% block content %}
         <div class="container homepage-container">
-            <h1>GraphQuery with ADAL</h1>
-            <div class="form-inline">      {{ wtf.quick_form(graph) }}            </div>
+            <h1>GraphQuery</h1>
+            <p>Leave the textbox empty to send GET requests, fill with data to send POST requests.</p>
+            <form class="form" action="" method="POST" role="form">
+                {{ wtf.quick_form(gp) }}
+                  </form>
+              <p> </p>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Response</h3>

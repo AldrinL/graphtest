@@ -26,11 +26,11 @@ class AppForm(FlaskForm):
     Secret = StringField('Secret', validators=[validators.Length(min=30)])
     submit = SubmitField("Connect")
 class GraphForm(FlaskForm):
-    API = StringField('https://microsoftgraph.chinacloudapi.cn/v1.0', validators=[validators.Length(min=2)], default='/me')
+    API = StringField(validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me')
     submit = SubmitField("Test")
 class GPForm(FlaskForm):
-    api = StringField('https://microsoftgraph.chinacloudapi.cn/v1.0', validators=[validators.Length(min=2)], default='/me')
-    postdata = TextAreaField()
+    api = StringField("", validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me', )
+    postdata = TextAreaField("")
     submit = SubmitField("Test")
     
 
@@ -85,18 +85,22 @@ def authorized():
 @APP.route('/graphcall', methods=('GET', 'POST'))
 def graphcall():
     """Confirm user authentication by calling Graph and displaying some data."""
-    graph = GraphForm()
-    if graph.validate_on_submit():
-        SESSION.API = graph.API.data
-        endpoint = config.RESOURCE + config.API_VERSION + SESSION.API
+    gp = GPForm()
+    if gp.validate_on_submit():
+        SESSION.API = gp.api.data
+        endpoint = SESSION.API
         http_headers = {'client-request-id': str(uuid.uuid4())}
-        graphdata = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+        if gp.postdata.data:
+            graphdata = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.postdata.data).json()
+        else:    
+            graphdata = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+        print(SESSION.API, gp.postdata.data)
         return flask.render_template('graphcall.html',
-                                 graph=graph,
                                  graphdata=graphdata,
                                  endpoint=endpoint,
-                                 headers=SESSION.headers)
-    return flask.render_template('graphcall.html', graph=graph)
+                                 headers=SESSION.headers,
+                                 gp = gp)
+    return flask.render_template('graphcall.html', gp = gp)
 
 if __name__ == '__main__':
     HOST = os.environ.get('IP', '0.0.0.0')

@@ -7,7 +7,9 @@
         <div class="container homepage-container">
             <h1>Graph Query</h1>
             <p>This site is provided for testing Microsoft Graph API.</p>
-            <p>First please add <a href="{{ redirect_uri }}">{{ redirect_uri }}</a> to the redirect uri list of you application.</p>
+            <p>First please add <a href="{{ redirect_uri }}">{{ redirect_uri }}</a> to the redirect uri list of you application if you want to use your own application.</p>
+            <small>If you don't have an application, use this instead.</small>
+            <small>AppID: 25e303a0-f481-4663-b277-eb3ecf8316ca  Secret: n7pWO820jezdoh5Mblgo3ysw9EvjuiRwhVNOtvNejKw=</small>
             {{ wtf.quick_form(msapp) }}
             <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
         </div>

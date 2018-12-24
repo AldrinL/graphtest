@@ -9,7 +9,7 @@ import adal
 import flask
 import requests
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, validators
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, validators
 from flask_bootstrap import Bootstrap
 import json
 
@@ -30,6 +30,7 @@ class GraphForm(FlaskForm):
     submit = SubmitField("Test")
 class GPForm(FlaskForm):
     api = StringField("", validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me', )
+    method = SelectField('Method', choices=[('GET', 'GET'), ('POST', 'POST'), ('PUT', 'PUT'), ('DELETE', 'DELETE'), ('PATCH', 'PATCH')])
     postdata = TextAreaField("")
     submit = SubmitField("Test")
     

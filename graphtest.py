@@ -9,7 +9,7 @@ import adal
 import flask
 import requests
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, validators
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, validators
 from flask_bootstrap import Bootstrap
 import json
 
@@ -29,8 +29,9 @@ class GraphForm(FlaskForm):
     API = StringField(validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me')
     submit = SubmitField("Test")
 class GPForm(FlaskForm):
-    api = StringField("", validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me', )
-    postdata = TextAreaField("")
+    api = StringField("API endpoint", validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me', )
+    method = SelectField('HTTP method', choices=[('GET', 'GET'), ('POST', 'POST'), ('PUT', 'PUT'), ('PATCH', 'PATCH'), ('DELETE', 'DELETE')])
+    body = TextAreaField("Request Body")
     submit = SubmitField("Test")
     
 
@@ -90,13 +91,19 @@ def graphcall():
         SESSION.API = gp.api.data
         endpoint = SESSION.API
         http_headers = {'client-request-id': str(uuid.uuid4())}
-        if gp.postdata.data:
-            graphdata = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.postdata.data).json()
-        else:    
-            graphdata = SESSION.get(endpoint, headers=http_headers, stream=False).json()
-        print(SESSION.API, gp.postdata.data)
+        if gp.method.data == 'GET':
+            response = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+        elif gp.method.data == 'POST':    
+            response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+        elif gp.method.data == 'PUT':    
+            response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+        elif gp.method.data == 'PATCH':    
+            response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+        elif gp.method.data == 'DELETE':    
+            response = SESSION.delete(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+        print(SESSION.API, gp.body.data, gp.method.data)
         return flask.render_template('graphcall.html',
-                                 graphdata=graphdata,
+                                 response=response,
                                  endpoint=endpoint,
                                  headers=SESSION.headers,
                                  gp = gp)

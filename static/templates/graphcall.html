@@ -5,7 +5,7 @@
 {% block content %}
         <div class="container homepage-container">
             <h1>GraphQuery</h1>
-            <p>Leave the textbox empty to send GET requests, fill with data to send POST requests.</p>
+            <p>Leave the textbox empty to send GET requests.</p>
             <form class="form" action="" method="POST" role="form">
                 {{ wtf.quick_form(gp) }}
                   </form>
@@ -16,7 +16,7 @@
               </div>
               <div class="panel-body">
                   <div class="well">{{ headers }}</div>
-                  <div class="well">{{ graphdata }}</div>
+                  <div class="well">{{ response }}</div>
               </div>
             </div>
             <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>

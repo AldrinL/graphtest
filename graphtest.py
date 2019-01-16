@@ -22,8 +22,8 @@ Bootstrap(APP)
 APP.secret_key = 'development'
 
 class AppForm(FlaskForm):
-    AppID = StringField('AppID', validators=[validators.Length(min=25, max=40)])
-    Secret = StringField('Secret', validators=[validators.Length(min=30)])
+    AppID = StringField('AppID', validators=[validators.Length(min=25, max=40)], default='25e303a0-f481-4663-b277-eb3ecf8316ca')
+    Secret = StringField('Secret', validators=[validators.Length(min=30)], default='n7pWO820jezdoh5Mblgo3ysw9EvjuiRwhVNOtvNejKw=')
     submit = SubmitField("Connect")
 class GraphForm(FlaskForm):
     API = StringField(validators=[validators.Length(min=2)], default='https://microsoftgraph.chinacloudapi.cn/v1.0/me')
@@ -105,7 +105,7 @@ def graphcall():
         return flask.render_template('graphcall.html',
                                  response=response,
                                  endpoint=endpoint,
-                                 headers=SESSION.headers,
+                                 token=SESSION.headers['Authorization'],
                                  gp = gp)
     return flask.render_template('graphcall.html', gp = gp)
 

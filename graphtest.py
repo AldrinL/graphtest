@@ -100,7 +100,7 @@ def graphcall():
         elif gp.method.data == 'PATCH':    
             response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
         elif gp.method.data == 'DELETE':    
-            response = SESSION.delete(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+            response = SESSION.delete(endpoint, headers=http_headers, stream=False).json()
         print(SESSION.API, gp.body.data, gp.method.data)
         return flask.render_template('graphcall.html',
                                  response=response,

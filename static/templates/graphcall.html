@@ -9,17 +9,29 @@
                 {{ wtf.quick_form(gp) }}
                   </form>
               <p> </p>
+
+
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Response</h3>
               </div>
               <div class="panel-body">
-                  <div class="well">{{ token }}</div>
-                  <div class="well">{{ response }}</div>
+                <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Show Token
+                </a>
+              <div class="collapse" id="collapseExample">
+                <div class="well" style='word-break:break-all;'>
+                  {{ token }}
+                </div>
               </div>
+                  <pre id="json" style='white-space: pre-wrap;'>{{ response }}</pre>
+              </div>
+              
             </div>
+            
             <a href="https://docs.microsoft.com/zh-cn/graph/api/overview?toc=./ref/toc.json&view=graph-rest-1.0" target="_blank">
                 <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
             </a>
         </div>
 {% endblock %}
+

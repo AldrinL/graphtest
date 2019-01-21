@@ -94,33 +94,38 @@ def graphcall():
         if gp.method.data == 'GET':
             try:
                 response = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+                response = json.dumps(response, sort_keys=True, indent=2)
             except:
                 response = SESSION.get(endpoint, headers=http_headers, stream=False).text
         elif gp.method.data == 'POST':    
             try:
                 response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+                response = json.dumps(response, sort_keys=True, indent=2)
             except:
                 response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
         elif gp.method.data == 'PUT':    
             try:
                 response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+                response = json.dumps(response, sort_keys=True, indent=2)
             except:
                 response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
         elif gp.method.data == 'PATCH':  
             try:
                 response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+                response = json.dumps(response, sort_keys=True, indent=2)
             except:
                 response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
         elif gp.method.data == 'DELETE':  
             try:
-                response = SESSION.delete(endpoint, headers=http_headers, stream=False).json()
+                response = SESSION.delete(endpoint, headers=http_headers, stream=False)
+                response = json.dumps(response, sort_keys=True, indent=2)
             except:
                 response = SESSION.delete(endpoint, headers=http_headers, stream=False).text
         print(SESSION.API, gp.body.data, gp.method.data)
         return flask.render_template('graphcall.html',
                                  response=response,
                                  endpoint=endpoint,
-                                 token='The request token is ' + SESSION.headers['Authorization'],
+                                 token=SESSION.headers['Authorization'],
                                  gp = gp)
     return flask.render_template('graphcall.html', gp = gp)
 

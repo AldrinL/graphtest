@@ -10,6 +10,8 @@
             <p>If you want to use you own application, change the text fields of AppID and Secret.</p>
             <p>Then add <a href="{{ redirect_uri }}">{{ redirect_uri }}</a> to the redirect uri list of you application.</p>
             {{ wtf.quick_form(msapp) }}
-            <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
+            <a href="https://docs.microsoft.com/zh-cn/graph/api/overview?toc=./ref/toc.json&view=graph-rest-1.0" target="_blank">
+                <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
+            </a>
         </div>
 {% endblock %}

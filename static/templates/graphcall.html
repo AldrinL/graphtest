@@ -14,10 +14,12 @@
                 <h3 class="panel-title">Response</h3>
               </div>
               <div class="panel-body">
-                  <div class="well">The request token is {{ token }}</div>
+                  <div class="well">{{ token }}</div>
                   <div class="well">{{ response }}</div>
               </div>
             </div>
-            <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
+            <a href="https://docs.microsoft.com/zh-cn/graph/api/overview?toc=./ref/toc.json&view=graph-rest-1.0" target="_blank">
+                <img src="/static/images/microsoft_graph.png" alt="Microsoft Graph" width=400 height=195/>
+            </a>
         </div>
 {% endblock %}

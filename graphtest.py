@@ -92,20 +92,35 @@ def graphcall():
         endpoint = SESSION.API
         http_headers = {'client-request-id': str(uuid.uuid4())}
         if gp.method.data == 'GET':
-            response = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+            try:
+                response = SESSION.get(endpoint, headers=http_headers, stream=False).json()
+            except:
+                response = SESSION.get(endpoint, headers=http_headers, stream=False).text
         elif gp.method.data == 'POST':    
-            response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+            try:
+                response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+            except:
+                response = SESSION.post(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
         elif gp.method.data == 'PUT':    
-            response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
-        elif gp.method.data == 'PATCH':    
-            response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
-        elif gp.method.data == 'DELETE':    
-            response = SESSION.delete(endpoint, headers=http_headers, stream=False).json()
+            try:
+                response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+            except:
+                response = SESSION.put(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
+        elif gp.method.data == 'PATCH':  
+            try:
+                response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).json()
+            except:
+                response = SESSION.patch(endpoint, headers=http_headers, stream=False, data=gp.body.data).text
+        elif gp.method.data == 'DELETE':  
+            try:
+                response = SESSION.delete(endpoint, headers=http_headers, stream=False).json()
+            except:
+                response = SESSION.delete(endpoint, headers=http_headers, stream=False).text
         print(SESSION.API, gp.body.data, gp.method.data)
         return flask.render_template('graphcall.html',
                                  response=response,
                                  endpoint=endpoint,
-                                 token=SESSION.headers['Authorization'],
+                                 token='The request token is ' + SESSION.headers['Authorization'],
                                  gp = gp)
     return flask.render_template('graphcall.html', gp = gp)
 
@@ -116,4 +131,3 @@ if __name__ == '__main__':
     except ValueError:
         PORT = 5555
     APP.run(HOST, PORT)
-#    APP.run()
